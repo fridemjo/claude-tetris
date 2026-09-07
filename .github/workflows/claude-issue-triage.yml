@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   issues: write
+  id-token: write
 
 concurrency:
   group: triage-${{ github.event.issue.number }}
