@@ -4,15 +4,60 @@
   padding: 0;
 }
 
+:root {
+  --body-bg: #0f0f17;
+  --body-fg: #e0e0e0;
+  --board-border: #2a2a3a;
+  --board-bg: #1a1a25;
+  --grid-line: #22222e;
+  --label-color: #555570;
+  --value-color: #7aa2f7;
+  --controls-color: #888;
+  --kbd-bg: #22223a;
+  --kbd-border: #3a3a5a;
+  --kbd-color: #aaa;
+  --overlay-bg: rgba(10, 10, 20, 0.75);
+  --overlay-title-color: #e57373;
+  --btn-bg: #7aa2f7;
+  --btn-fg: #0f0f17;
+  --btn-hover-bg: #9bbdff;
+  --switch-bg: #22223a;
+  --switch-border: #3a3a5a;
+  --switch-knob: #7aa2f7;
+}
+
+html[data-theme='light'] {
+  --body-bg: #f2f2f7;
+  --body-fg: #1a1a25;
+  --board-border: #c7c7d6;
+  --board-bg: #ffffff;
+  --grid-line: #e0e0ea;
+  --label-color: #7a7a90;
+  --value-color: #3a5ecc;
+  --controls-color: #555;
+  --kbd-bg: #e8e8f0;
+  --kbd-border: #c7c7d6;
+  --kbd-color: #444;
+  --overlay-bg: rgba(240, 240, 248, 0.85);
+  --overlay-title-color: #c0392b;
+  --btn-bg: #3a5ecc;
+  --btn-fg: #ffffff;
+  --btn-hover-bg: #5b7de0;
+  --switch-bg: #d6d6e4;
+  --switch-border: #b0b0c4;
+  --switch-knob: #3a5ecc;
+}
+
 body {
-  background: #0f0f17;
-  color: #e0e0e0;
+  background: var(--body-bg);
+  color: var(--body-fg);
   font-family: system-ui, -apple-system, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   user-select: none;
+  transition: background 0.2s, color 0.2s;
 }
 
 .wrapper {
@@ -27,8 +72,8 @@ body {
 
 #board {
   display: block;
-  border: 1px solid #2a2a3a;
-  background: #1a1a25;
+  border: 1px solid var(--board-border);
+  background: var(--board-bg);
   border-radius: 4px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
 }
@@ -51,7 +96,7 @@ body {
 .label {
   font-size: 10px;
   letter-spacing: 2px;
-  color: #555570;
+  color: var(--label-color);
   font-weight: 600;
 }
 
@@ -59,14 +104,14 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-size: 26px;
   font-weight: 700;
-  color: #7aa2f7;
+  color: var(--value-color);
   letter-spacing: 1px;
 }
 
 #next-canvas {
   display: block;
-  border: 1px solid #2a2a3a;
-  background: #1a1a25;
+  border: 1px solid var(--board-border);
+  background: var(--board-bg);
   border-radius: 4px;
 }
 
@@ -80,20 +125,68 @@ body {
 
 .controls li {
   font-size: 12px;
-  color: #888;
+  color: var(--controls-color);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
 kbd {
-  background: #22223a;
-  border: 1px solid #3a3a5a;
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
   border-radius: 3px;
   padding: 1px 6px;
   font-size: 11px;
   font-family: inherit;
-  color: #aaa;
+  color: var(--kbd-color);
+}
+
+/* ---- Toggle de tema ---- */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: var(--switch-bg);
+  border: 1px solid var(--switch-border);
+  border-radius: 22px;
+  transition: background 0.2s;
+}
+
+.switch-slider::before {
+  content: '';
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  top: 3px;
+  background: var(--switch-knob);
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.switch input:checked + .switch-slider::before {
+  transform: translateX(18px);
 }
 
 /* ---- Overlay ---- */
@@ -103,7 +196,7 @@ kbd {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 10, 20, 0.75);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   border-radius: 4px;
 }
@@ -124,19 +217,19 @@ kbd {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: 4px;
-  color: #e57373;
+  color: var(--overlay-title-color);
 }
 
 #overlay-score {
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
-  color: #7aa2f7;
+  color: var(--value-color);
 }
 
 #restart-btn {
   margin-top: 8px;
-  background: #7aa2f7;
-  color: #0f0f17;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   border: none;
   border-radius: 6px;
   padding: 10px 28px;
@@ -148,5 +241,5 @@ kbd {
 }
 
 #restart-btn:hover {
-  background: #9bbdff;
+  background: var(--btn-hover-bg);
 }
