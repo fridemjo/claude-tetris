@@ -24,6 +24,8 @@
   --switch-bg: #22223a;
   --switch-border: #3a3a5a;
   --switch-knob: #7aa2f7;
+  --combo-color: #ffd54f;
+  --b2b-color: #ba68c8;
 }
 
 html[data-theme='light'] {
@@ -46,6 +48,8 @@ html[data-theme='light'] {
   --switch-bg: #d6d6e4;
   --switch-border: #b0b0c4;
   --switch-knob: #3a5ecc;
+  --combo-color: #c98a00;
+  --b2b-color: #8e3fa8;
 }
 
 body {
@@ -106,6 +110,23 @@ body {
   font-weight: 700;
   color: var(--value-color);
   letter-spacing: 1px;
+}
+
+#combo-section .value {
+  color: var(--combo-color);
+}
+
+#b2b-section .value {
+  color: var(--b2b-color);
+}
+
+@keyframes combo-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.combo-active .value {
+  animation: combo-pulse 0.5s ease-in-out infinite;
 }
 
 #next-canvas {
